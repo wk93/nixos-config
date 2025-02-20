@@ -2,12 +2,13 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   nixpkgs.config.allowUnfree = true;
@@ -40,6 +41,10 @@
     packages = with pkgs; [
       tree
     ];
+  };
+
+  home-manager = {
+    users.wojtek = import ./home.nix;
   };
 
   # List packages installed in system profile. To search, run:
