@@ -15,12 +15,14 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [ 
-	  ./configuration.nix
-	  inputs.home-manager.nixosModules.default
-	];
+      nixosConfigurations = {
+        t480 = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [ 
+	    ./hosts/t480/configuration.nix
+	    inputs.home-manager.nixosModules.default
+	  ];
+        };
       };
     };
   }
